@@ -1,0 +1,12 @@
+.stars-wrap { display: inline-flex; align-items: center; gap: 6px; }
+.stars { position: relative; display: inline-block; line-height: 1; white-space: nowrap; }
+.stars-bg { color: var(--felt-500); letter-spacing: 1px; }
+.stars-fg {
+  position: absolute; inset: 0;
+  overflow: hidden;
+  color: var(--accent-text);
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+.stars-value { font-size: 13px; }
+.stars-count { font-size: 12px; }

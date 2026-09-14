@@ -1,0 +1,39 @@
+.avatar {
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-pill);
+  color: var(--c-night);
+  font-weight: 700;
+  letter-spacing: .02em;
+  flex: none;
+  box-shadow: var(--tile-ring);
+  user-select: none;
+}
+.avatar-link { display: inline-flex; flex: none; }
+.avatar-link:hover .avatar { filter: brightness(1.12); }
+
+/* One tone per palette colour. Initials are night on the three light tones and
+   mist on night — every pairing clears 5:1. */
+.avatar-blue  { background: var(--c-blue);  color: var(--c-night); }
+.avatar-slate { background: var(--c-slate); color: var(--c-night); }
+.avatar-mist  { background: var(--c-mist);  color: var(--c-night); }
+.avatar-night {
+  background: var(--c-night);
+  color: var(--c-mist);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c-slate) 55%, transparent);
+}
+
+/* A photo covers the inset ring, so the hairline moves to an outline, which is
+   painted over the image. The tone stays underneath while the image decodes. */
+.avatar-has-photo {
+  overflow: hidden;
+  outline: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+  outline-offset: -1px;
+}
+.avatar-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}

@@ -1,0 +1,189 @@
+/* ------------------------------------------------------------------ shell */
+
+.app-shell {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background:
+    radial-gradient(1100px 600px at 50% -10%, color-mix(in srgb, var(--c-blue) 10%, transparent), transparent 60%),
+    var(--felt-900);
+}
+
+.app-main {
+  flex: 1;
+  width: 100%;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding-bottom: calc(var(--nav-h) + env(safe-area-inset-bottom, 0px) + 12px);
+}
+
+@media (min-width: 900px) {
+  .app-shell { flex-direction: row-reverse; justify-content: center; gap: 24px; }
+  .app-main {
+    padding-bottom: 40px;
+    border-left: 1px solid var(--line-soft);
+    border-right: 1px solid var(--line-soft);
+    min-height: 100dvh;
+    margin: 0;
+  }
+}
+
+/* ------------------------------------------------------------ screen head */
+
+.screen-head {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: color-mix(in srgb, var(--felt-900) 88%, transparent);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line-soft);
+}
+.screen-head h1 { margin: 0; font-size: 19px; letter-spacing: -0.01em; }
+.screen-head .spacer { flex: 1; }
+.screen-head-sub { font-size: 12px; color: var(--ink-faint); margin-top: 1px; }
+
+.back-btn {
+  display: grid; place-items: center;
+  width: 34px; height: 34px; flex: none;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--line);
+  background: var(--felt-700);
+  cursor: pointer;
+}
+.back-btn:hover { background: var(--felt-600); }
+
+/* --------------------------------------------------------------- buttons */
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  padding: 9px 16px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--line);
+  background: var(--felt-700);
+  font-size: 14px; font-weight: 600;
+  cursor: pointer;
+  transition: background .15s, border-color .15s, transform .08s;
+  white-space: nowrap;
+}
+.btn:hover { background: var(--felt-600); }
+.btn:active { transform: scale(.97); }
+.btn:disabled { opacity: .45; cursor: not-allowed; transform: none; }
+
+.btn-primary {
+  background: var(--accent); border-color: transparent; color: var(--accent-ink);
+}
+.btn-primary:hover { background: color-mix(in srgb, var(--accent) 86%, var(--c-mist)); }
+
+.btn-danger { color: var(--danger); border-color: color-mix(in srgb, var(--danger) 40%, transparent); }
+.btn-danger:hover { background: color-mix(in srgb, var(--danger) 14%, transparent); }
+
+.btn-ghost { background: transparent; border-color: transparent; color: var(--ink-dim); }
+.btn-ghost:hover { background: var(--felt-700); color: var(--ink); }
+
+.btn-sm { padding: 6px 12px; font-size: 13px; }
+.btn-block { width: 100%; }
+
+/* ----------------------------------------------------------------- cards */
+
+.card {
+  background: var(--felt-800);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-1);
+}
+
+.section-title {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 0 0 10px;
+}
+
+/* ----------------------------------------------------------------- chips */
+
+.chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--line);
+  background: var(--felt-700);
+  font-size: 12px; font-weight: 600;
+  color: var(--ink-dim);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.chip[aria-pressed='true'], .chip.is-active {
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  color: var(--accent-text);
+}
+.chip-static { cursor: default; }
+
+.chip-row {
+  display: flex; gap: 8px; overflow-x: auto;
+  padding: 2px; margin: -2px;
+  scrollbar-width: none;
+}
+.chip-row::-webkit-scrollbar { display: none; }
+
+/* --------------------------------------------------------------- helpers */
+
+.muted { color: var(--ink-dim); }
+.faint { color: var(--ink-faint); }
+.num { font-family: var(--font-num); font-variant-numeric: tabular-nums; }
+.pos { color: var(--accent-text); }
+.neg { color: var(--danger); }
+.row { display: flex; align-items: center; gap: 8px; }
+.stack { display: flex; flex-direction: column; }
+.pad { padding: 16px; }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+.divider { height: 1px; background: var(--line-soft); border: 0; margin: 0; }
+
+.field { margin-bottom: 16px; }
+.field > label, .field-label {
+  display: block; font-size: 13px; font-weight: 600;
+  color: var(--ink-dim); margin-bottom: 6px;
+}
+.field-hint { font-size: 12px; color: var(--ink-faint); margin-top: 5px; }
+.field-error { font-size: 13px; color: var(--danger); margin-top: 6px; }
+
+.toast {
+  position: fixed; left: 50%; transform: translateX(-50%);
+  bottom: calc(var(--nav-h) + 20px);
+  z-index: 200;
+  padding: 10px 18px;
+  border-radius: var(--radius-pill);
+  background: var(--felt-500);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-2);
+  font-size: 14px; font-weight: 600;
+}
+
+/* ------------------------------------------------------------- room tones
+ * Every room tile, list dot and map pin is coloured by what the room is —
+ * casino in blue, card room in slate — so colour carries information instead
+ * of 34 unrelated brand gradients. Anything drawn on a tone is night. */
+.venue-tone { color: var(--c-night); }
+.venue-tone-casino {
+  background: linear-gradient(140deg, color-mix(in srgb, var(--c-blue) 78%, var(--c-mist)), var(--c-blue));
+}
+.venue-tone-cardroom {
+  background: linear-gradient(140deg, color-mix(in srgb, var(--c-slate) 74%, var(--c-mist)), var(--c-slate));
+}
+/* The venue hero carries text under a veil, so it uses deep versions. */
+.venue-deep-casino {
+  background: linear-gradient(135deg, var(--c-blue), color-mix(in srgb, var(--c-blue) 30%, var(--c-night)));
+}
+.venue-deep-cardroom {
+  background: linear-gradient(135deg, var(--c-slate), color-mix(in srgb, var(--c-slate) 30%, var(--c-night)));
+}

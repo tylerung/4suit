@@ -1,0 +1,265 @@
+/* ------------------------------------------------------------------ grid */
+
+.mg-grid {
+  display: grid;
+  gap: 2px;
+  width: 100%;
+  max-width: 100%;
+  border-radius: var(--radius);
+  overflow: hidden;
+  /* Shows through the 2px gaps as a hairline between tiles. */
+  background: var(--line-soft);
+}
+
+.mg-n1 { grid-template-columns: 1fr; }
+.mg-n2 { grid-template-columns: 1fr 1fr; }
+.mg-n3 { grid-template-columns: 2fr 1fr; }
+.mg-n4 { grid-template-columns: 1fr 1fr; }
+
+/* ------------------------------------------------------------------ tile */
+
+.mg-tile {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  background: var(--felt-700);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.mg-tile:focus-visible { outline: 2px solid var(--accent-text); outline-offset: -2px; }
+
+/* One attachment: the item's own ratio comes in inline; this is the fallback
+   for media whose dimensions were never known, plus the height ceiling. */
+.mg-n1 .mg-tile { aspect-ratio: 4 / 3; max-height: 460px; }
+.mg-grid.is-compact.mg-n1 .mg-tile { max-height: 300px; }
+
+.mg-n2 .mg-tile,
+.mg-n3 .mg-tile,
+.mg-n4 .mg-tile { aspect-ratio: 1 / 1; }
+
+/* Three attachments: one tall tile on the left, two stacked on the right. */
+.mg-n3 .mg-tile:first-child {
+  grid-row: 1 / span 2;
+  aspect-ratio: auto;
+  height: 100%;
+}
+
+.mg-media {
+  /* Taken out of flow so a tall photo can never inflate its own tile — the box
+     comes from the tile's aspect ratio alone. */
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  /* The tile itself is the button; media must never swallow the click. */
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------- tile overlays */
+
+.mg-skeleton {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    var(--felt-700) 0%,
+    var(--felt-600) 45%,
+    var(--felt-700) 90%
+  );
+  background-size: 220% 100%;
+  animation: mg-shimmer 1.5s ease-in-out infinite;
+}
+@keyframes mg-shimmer {
+  from { background-position: 180% 0; }
+  to   { background-position: -60% 0; }
+}
+
+.mg-missing {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px;
+  text-align: center;
+  background: var(--felt-700);
+  color: var(--ink-faint);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+.mg-missing-glyph { font-size: 20px; line-height: 1; }
+
+.mg-play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 56px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--felt-900) 62%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ink) 26%, transparent);
+  color: var(--ink);
+  font-size: 20px;
+  line-height: 1;
+  /* Nudge the glyph off the optical centre. */
+  padding-left: 3px;
+  box-shadow: var(--shadow-1);
+}
+.mg-grid.is-compact .mg-play { width: 42px; height: 42px; font-size: 15px; }
+
+.mg-badge {
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  padding: 2px 7px;
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--felt-900) 72%, transparent);
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .02em;
+}
+
+.mg-more {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: color-mix(in srgb, var(--felt-900) 58%, transparent);
+  color: var(--ink);
+  font-size: 26px;
+  font-weight: 700;
+}
+.mg-grid.is-compact .mg-more { font-size: 20px; }
+
+/* -------------------------------------------------------------- lightbox */
+
+.mg-lb {
+  position: fixed;
+  inset: 0;
+  /* Above the fixed nav (50) and toasts (200); level with the modal layer. */
+  z-index: 290;
+  display: flex;
+  flex-direction: column;
+  background: color-mix(in srgb, var(--felt-900) 93%, transparent);
+  backdrop-filter: blur(4px);
+  animation: mg-lb-in .15s ease-out;
+}
+@keyframes mg-lb-in { from { opacity: 0; } }
+
+.mg-lb-bar {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: calc(env(safe-area-inset-top, 0px) + 10px) 12px 8px;
+}
+.mg-lb-spacer { flex: 1; }
+.mg-lb-count {
+  padding-left: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink-dim);
+}
+
+.mg-lb-btn,
+.mg-lb-nav {
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--felt-800) 82%, transparent);
+  color: var(--ink);
+  line-height: 1;
+  cursor: pointer;
+}
+.mg-lb-btn:hover,
+.mg-lb-nav:hover { background: var(--felt-600); }
+.mg-lb-btn:active,
+.mg-lb-nav:active { transform: scale(.94); }
+
+.mg-lb-btn { width: 40px; height: 40px; font-size: 24px; }
+.mg-lb-nav {
+  position: absolute;
+  top: 50%;
+  width: 44px;
+  height: 44px;
+  margin-top: -22px;
+  font-size: 26px;
+  box-shadow: var(--shadow-2);
+}
+.mg-lb-prev { left: 8px; padding-right: 3px; }
+.mg-lb-next { right: 8px; padding-left: 3px; }
+
+.mg-lb-stage {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  place-items: center;
+  /* A very long caption scrolls inside the overlay rather than being clipped. */
+  overflow: auto;
+  padding: 0 12px calc(env(safe-area-inset-bottom, 0px) + 16px);
+}
+
+.mg-lb-figure {
+  margin: 0;
+  min-width: 0;
+  min-height: 0;
+  max-width: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.mg-lb-media {
+  min-height: 0;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  /* Viewport-relative so the cap holds even though the figure is auto-height:
+     leaves room for the top bar and a line or two of caption. */
+  max-height: calc(100dvh - 160px);
+  object-fit: contain;
+  border-radius: var(--radius-sm);
+  background: var(--felt-900);
+}
+
+.mg-lb-caption {
+  flex: none;
+  max-width: 62ch;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--ink-dim);
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.mg-lb-note {
+  margin: 0;
+  padding: 24px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+}
+
+@media (min-width: 700px) {
+  .mg-lb-prev { left: 20px; }
+  .mg-lb-next { right: 20px; }
+  .mg-lb-stage { padding: 0 76px 24px; }
+}

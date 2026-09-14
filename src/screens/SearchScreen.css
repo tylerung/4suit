@@ -1,0 +1,111 @@
+/* SearchScreen — every class here is prefixed `srch-` and owned by this screen. */
+
+.srch-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px 16px 8px;
+}
+
+/* ------------------------------------------------------------- the field */
+
+.srch-field { position: relative; }
+
+.srch-icon {
+  position: absolute;
+  left: 13px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  line-height: 1;
+  opacity: .85;
+  pointer-events: none;
+}
+
+.srch-input {
+  padding: 12px 42px 12px 38px;
+  border-radius: var(--radius-pill);
+  /* 16px keeps iOS from zooming the whole column on focus. */
+  font-size: 16px;
+  background: var(--felt-700);
+}
+
+.srch-clear {
+  position: absolute;
+  right: 7px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--ink-faint);
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+}
+.srch-clear:hover { background: var(--felt-600); color: var(--ink); }
+
+.srch-count {
+  font-size: 11px;
+}
+
+/* ----------------------------------------------------------- result sets */
+
+.srch-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  /* .section-title carries its own 10px bottom margin — the right-hand
+     element matches it so the two stay optically aligned. */
+  padding: 16px 16px 0;
+}
+
+.srch-seeall,
+.srch-head-note {
+  flex: none;
+  margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.srch-seeall {
+  border: 0;
+  background: transparent;
+  color: var(--accent-text);
+  padding: 3px 7px;
+  margin-right: -7px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+}
+.srch-seeall:hover { background: color-mix(in srgb, var(--accent) 14%, transparent); }
+
+.srch-lists { padding: 0 16px; }
+
+.srch-quick-wrap,
+.srch-more-wrap { padding: 0 16px; }
+
+.srch-more-wrap { padding-top: 12px; }
+
+.srch-empty { overflow-wrap: anywhere; }
+
+/* The first section sits right under the field — it needs less air. */
+.srch-landing > .srch-section:first-child .srch-section-head,
+.srch-results > .srch-section:first-child .srch-section-head {
+  padding-top: 6px;
+}
+
+/* Nothing here may push the column sideways. */
+.srch-landing,
+.srch-results,
+.srch-rows { max-width: 100%; }
+
+@media (min-width: 900px) {
+  .srch-wrap { padding: 16px 20px 10px; }
+  .srch-section-head { padding-top: 22px; }
+}

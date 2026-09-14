@@ -1,0 +1,18 @@
+.user-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line-soft);
+}
+.user-row:hover { background: var(--felt-800); }
+.user-row-main { flex: 1; min-width: 0; }
+.user-row-name {
+  font-weight: 700; font-size: 14.5px;
+  display: flex; align-items: center; gap: 5px;
+}
+.user-row-handle {
+  font-size: 12.5px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.user-row-roles { display: flex; gap: 5px; margin-top: 5px; flex-wrap: wrap; }
+.verified { color: var(--accent-text); font-size: 12px; }
+.lock { font-size: 11px; }

@@ -1,0 +1,24 @@
+.list-card { display: block; padding: 14px; margin-bottom: 10px; }
+.list-card:hover { border-color: var(--line); background: var(--felt-700); }
+.list-card-head { display: flex; align-items: flex-start; gap: 11px; }
+.list-card-emoji { font-size: 22px; line-height: 1.2; flex: none; }
+.list-card-title { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.list-card-title b { font-size: 15px; }
+.list-card-title span { font-size: 12px; }
+.list-visibility {
+  flex: none; font-size: 11px; font-weight: 700;
+  padding: 3px 8px; border-radius: var(--radius-pill);
+  border: 1px solid var(--line); color: var(--ink-faint);
+}
+.list-visibility.public {
+  color: var(--accent-text);
+  border-color: color-mix(in srgb, var(--accent) 34%, transparent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+.list-card-desc { margin: 9px 0 0; font-size: 13px; }
+.list-card-preview { display: flex; align-items: center; gap: 6px; margin-top: 11px; }
+.list-card-dot { width: 15px; height: 15px; border-radius: 4px; flex: none; }
+.list-card-names {
+  font-size: 11.5px; margin-left: 3px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}

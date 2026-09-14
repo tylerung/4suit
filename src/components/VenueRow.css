@@ -1,0 +1,36 @@
+.venue-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line-soft);
+  transition: background .12s;
+}
+.venue-row:hover { background: var(--felt-800); }
+
+.venue-rank {
+  flex: none;
+  width: 26px; text-align: center;
+  font-size: 15px; font-weight: 800;
+  color: var(--ink-faint);
+}
+.venue-rank.gold   { color: var(--accent-text); }
+/* The podium in palette terms: #1 blue, #2 full ink, #3 dimmed. */
+.venue-rank.silver { color: var(--ink); }
+.venue-rank.bronze { color: var(--ink-dim); }
+
+.venue-swatch {
+  flex: none;
+  width: 46px; height: 46px;
+  border-radius: var(--radius-sm);
+  display: grid; place-items: center;
+  font-size: 20px;
+  box-shadow: var(--tile-ring);
+}
+
+.venue-row-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.venue-row-name {
+  font-weight: 700; font-size: 14.5px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.venue-row-meta { font-size: 12px; }
+.venue-row-rating { margin-top: 2px; }
+.venue-row-chevron { font-size: 22px; flex: none; }

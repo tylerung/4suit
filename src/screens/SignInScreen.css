@@ -1,0 +1,221 @@
+/* ============================================================== sign in
+ * Stands alone — no nav bar renders on this route. Every class is `signin-`.
+ * ===================================================================== */
+
+.signin-wrap {
+  display: flex;
+  min-height: calc(100dvh - var(--nav-h) - 12px);
+  padding: 28px 16px 32px;
+  min-width: 0;
+}
+
+/* `margin: auto` centers on both axes without clipping when the list is
+   taller than the viewport. */
+.signin-inner {
+  width: 100%;
+  max-width: 560px;
+  margin: auto;
+  min-width: 0;
+}
+
+/* -------------------------------------------------------------------- hero */
+
+.signin-hero {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.signin-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 0;
+  font-size: 38px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.signin-spade {
+  color: var(--accent-text);
+  font-size: 34px;
+  transform: translateY(-1px);
+}
+
+.signin-tag {
+  margin: 8px 0 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink-dim);
+}
+
+.signin-explain {
+  margin: 14px auto 0;
+  max-width: 44ch;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--ink-faint);
+}
+
+.signin-title {
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+/* ------------------------------------------------------------------- grid */
+
+.signin-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(232px, 1fr));
+  gap: 20px 12px;
+  min-width: 0;
+}
+
+.signin-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  min-width: 0;
+  padding: 14px;
+  text-align: left;
+  border-radius: var(--radius);
+  border: 1px solid var(--line-soft);
+  background: var(--felt-800);
+  box-shadow: var(--shadow-1);
+  cursor: pointer;
+  transition: background .15s, border-color .15s, box-shadow .15s, transform .08s;
+}
+.signin-card:hover {
+  background: var(--felt-700);
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+  box-shadow: var(--shadow-2);
+}
+.signin-card:active { transform: scale(.985); }
+
+.signin-card.is-you {
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  background: color-mix(in srgb, var(--accent) 8%, var(--felt-800));
+}
+
+.signin-badge {
+  position: absolute;
+  top: -10px;
+  left: 14px;
+  padding: 2px 9px;
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  box-shadow: var(--shadow-1);
+}
+
+/* ------------------------------------------------------------- card guts */
+
+.signin-card-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.signin-card-id {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.signin-card-name {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.signin-name-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.signin-verified {
+  flex: none;
+  font-size: 11px;
+  color: var(--accent-text);
+}
+
+.signin-lock {
+  flex: none;
+  font-size: 11px;
+}
+
+.signin-card-handle,
+.signin-card-loc {
+  font-size: 12.5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.signin-card-loc { margin-top: -2px; }
+
+.signin-card-roles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-width: 0;
+}
+
+.signin-card-foot {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 2px;
+  font-size: 12px;
+  color: var(--ink-faint);
+}
+
+.signin-followers {
+  color: var(--ink-dim);
+  font-weight: 700;
+}
+
+.signin-go {
+  flex: none;
+  font-weight: 700;
+  color: var(--ink-faint);
+  transition: color .15s;
+}
+/* Was dimmed with opacity (2.2:1). Now full-strength faint ink at rest,
+   blue on hover — both clear AA. */
+.signin-card:hover .signin-go { color: var(--accent-text); }
+
+/* ------------------------------------------------------------------ footer */
+
+.signin-foot {
+  margin: 26px auto 0;
+  max-width: 46ch;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* ------------------------------------------------------------ wide screens */
+
+@media (min-width: 900px) {
+  .signin-wrap {
+    min-height: calc(100dvh - 40px);
+    padding: 40px 20px;
+  }
+  .signin-mark { font-size: 44px; }
+  .signin-spade { font-size: 40px; }
+}

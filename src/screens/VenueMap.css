@@ -1,0 +1,136 @@
+/* ------------------------------------------------------------- venue map */
+
+.vm-wrap {
+  position: relative;
+  z-index: 0;                 /* keep Leaflet panes under the fixed nav bar */
+  isolation: isolate;
+  height: 70vh;
+  height: min(70dvh, 620px);
+  min-height: 340px;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-1);
+}
+
+.vm-map {
+  width: 100%;
+  height: 100%;
+  background: var(--felt-700);
+  font-family: var(--font);
+}
+
+/* OSM tiles arrive in every colour the map style uses — greens, yellows,
+   pinks. Greyscale keeps them on-palette and leaves the blue and slate pins
+   as the only colour on the map, which is also what makes them easy to find. */
+.vm-wrap .leaflet-tile-pane { filter: grayscale(1) brightness(.62) contrast(1.1); }
+[data-theme='light'] .vm-wrap .leaflet-tile-pane { filter: grayscale(1) contrast(.95); }
+
+/* ----------------------------------------------------------------- pins */
+
+.vm-wrap .vm-pin {
+  background: transparent;
+  border: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  filter: drop-shadow(0 3px 6px color-mix(in srgb, var(--c-night) 70%, transparent));
+}
+
+.vm-pin-body {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--c-mist) 45%, transparent);
+}
+.vm-pin-body-top {
+  box-shadow:
+    inset 0 0 0 2px var(--c-mist),
+    0 0 0 3px color-mix(in srgb, var(--c-blue) 55%, transparent);
+}
+
+.vm-pin-label {
+  font-family: var(--font-num);
+  font-size: 12.5px;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--c-night);
+}
+
+.vm-pin-stem {
+  width: 0;
+  height: 0;
+  margin-top: -1px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 7px solid currentColor;
+}
+.vm-pin-stem-casino   { border-top-color: var(--c-blue); }
+.vm-pin-stem-cardroom { border-top-color: var(--c-slate); }
+
+/* --------------------------------------------------------------- popups */
+
+.vm-wrap .leaflet-popup-content-wrapper,
+.vm-wrap .leaflet-popup-tip {
+  background: var(--felt-800);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-2);
+}
+.vm-wrap .leaflet-popup-content-wrapper { border-radius: var(--radius); }
+.vm-wrap .leaflet-popup-content { margin: 12px 14px; font-family: var(--font); font-size: 13px; }
+/* Leaflet hard-codes a font on its zoom buttons and popup close button, so they
+   need naming explicitly to match the rest of the app. */
+.vm-wrap .leaflet-control-zoom-in,
+.vm-wrap .leaflet-control-zoom-out { font-family: var(--font); }
+.vm-wrap .leaflet-popup-close-button { color: var(--ink-faint); font-family: var(--font); }
+.vm-wrap .leaflet-popup-close-button:hover { color: var(--ink); }
+
+.vm-popup { display: grid; gap: 6px; min-width: 160px; }
+.vm-popup-name { font-size: 14px; font-weight: 800; line-height: 1.25; }
+.vm-popup-place { font-size: 12px; }
+.vm-popup-rating { display: flex; align-items: center; min-height: 18px; }
+.vm-popup-link { justify-self: start; margin-top: 2px; }
+.vm-wrap .vm-popup-link { color: var(--accent-ink); text-decoration: none; }
+
+/* --------------------------------------------------------- map chrome */
+
+.vm-wrap .leaflet-bar a,
+.vm-wrap .leaflet-bar a:hover {
+  background: var(--felt-800);
+  color: var(--ink);
+  border-bottom-color: var(--line);
+}
+.vm-wrap .leaflet-bar a:hover { background: var(--felt-600); }
+
+.vm-wrap .leaflet-control-attribution {
+  background: color-mix(in srgb, var(--felt-900) 76%, transparent);
+  color: var(--ink-faint);
+  font-size: 10px;
+}
+.vm-wrap .leaflet-control-attribution a { color: var(--ink-dim); }
+
+.vm-legend {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 500;               /* above map panes, below Leaflet controls */
+  padding: 5px 11px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--felt-900) 80%, transparent);
+  backdrop-filter: blur(8px);
+  color: var(--ink-dim);
+  font-size: 11.5px;
+  font-weight: 700;
+  pointer-events: none;
+}
+.vm-legend { display: flex; align-items: center; gap: 10px; }
+.vm-legend-key { display: inline-flex; align-items: center; gap: 5px; font-weight: 600; }
+.vm-legend-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; }
+.vm-legend-dot:not(:first-child) { margin-left: 6px; }
+/* Leaflet prefixes its attribution with a small two-colour flag; the credit
+   links that the tile licence requires are left exactly as they are. */
+.vm-wrap .leaflet-attribution-flag { display: none !important; }
